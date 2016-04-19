@@ -1,0 +1,9 @@
+{% extends "happy/base.html" %}
+
+{% block title %}Happy{% endblock %}
+
+{% block content %}
+    {% for point in points %}
+        <div>{{ point.level }} | {{ point.created }}</div>
+    {% endfor %}
+{% endblock %}
