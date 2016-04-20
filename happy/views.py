@@ -1,8 +1,9 @@
+import json
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.db.models import Avg
 from .models import Point
-import json
 
 
 def point_create(request):
@@ -19,17 +20,20 @@ def point_list(request):
     return render(request, 'happy/point/list.html', {'points': points})
 
 def point_graph(request):
-    points = Point.objects.all()
+    points = Point.objects.extra(
+            {'agg_date':"date(created)"}).values(
+            'agg_date').annotate(avg_level=Avg('level'))
+
     x = ['x']
     level = ['level']
     for point in points:
-        level.append(point.level)
-        x.append(point.created.strftime("%Y%m%d%H%M%S"))
+        level.append(point['avg_level'])
+        x.append(point['agg_date'])
 
     json_data = {
         'data': {
             'x': 'x',
-            'xFormat': '%Y%m%d%H%M%S',
+            'xFormat': '%Y-%m-%d',
             'columns': [
                 x, level
             ]
@@ -38,8 +42,12 @@ def point_graph(request):
             'x': {
                 'type': 'timeseries',
                 'tick': {
-                    'format': '%Y%m%d%H%M%S'
+                    'format': '%Y-%m-%d'
                 }
+            },
+            'y': {
+                'max': 5,
+                'min': 0
             }
         }
     }

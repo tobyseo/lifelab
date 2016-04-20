@@ -3,7 +3,7 @@
 {% block title %}Happy{% endblock %}
 
 {% block content %}
-    <form method="post">{% csrf_token %}
+    <form id="level_input_form" method="post">{% csrf_token %}
         <input type="submit" name="level" value="1"/>
         <input type="submit" name="level" value="2"/>
         <input type="submit" name="level" value="3"/>
