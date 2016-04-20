@@ -3,6 +3,6 @@ from . import views
 
 urlpatterns = [
     url(r'^create$', views.point_create, name='point_create'),
-    url(r'^json$', views.point_json, name='point_json'),
+    url(r'^graph$', views.point_graph, name='point_graph'),
     url(r'^$', views.point_list, name='point_list'),
 ]
