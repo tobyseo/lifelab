@@ -1,6 +1,20 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#content {
+    height: 100%;
+}
+
+#level_input_form {
+    height: 100%;
+}
+
 #level_input_form > input {
     width: 100%;
-    height: 100px;
+    height: 20%;
     font-size: 50px;
 }
 
